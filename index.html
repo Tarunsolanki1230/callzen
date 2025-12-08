@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CallZen – Your 24/7 Digital Concierge for Home Peace of Mind</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="Picsart_25-12-08_07-14-43-688.png">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-soft: #f8fafb;
+      --primary: #FFD43B;
+      --text-main: #0f1724;
+      --text-muted: #475569;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(2,6,23,0.06);
+      --glass: rgba(255,255,255,0.6);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height:1.6;
+      scroll-behavior:smooth;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{ color:inherit; text-decoration:none;}
+    .h-container { width: min(1120px, 100% - 32px); margin: 0 auto; }
+    .h-flex-between { display:flex; justify-content:space-between; align-items:center;}
+    .site-header { position: sticky; top:0; z-index:60; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); border-bottom:1px solid rgba(2,6,23,0.06); padding:10px 0; }
+    .logo { display:inline-flex; gap:10px; align-items:center; font-weight:700;}
+    .site-logo { height:38px; display:block; }
+    .nav-links { display:flex; gap:20px; align-items:center;}
+    .nav-links a { color:var(--text-muted); padding:8px 6px; border-radius:8px; }
+    .nav-links a:hover { color:var(--text-main); background:rgba(2,6,23,0.03); }
+    .mobile-only{ display:none; } .desktop-only{ display:inline-flex; }
+    .nav-toggle { display:none; background:none; border:none; cursor:pointer; padding:8px; border-radius:8px; }
+    .hero { padding:72px 0 48px; background:linear-gradient(180deg, rgba(249,250,251,1) 0%, rgba(243,244,246,1) 100%); }
+    .hero-grid { display:grid; grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr); gap:40px; align-items:center; }
+    .btn-primary { display:inline-flex; padding:12px 24px; border-radius:999px; background:linear-gradient(180deg,var(--primary),#ffb700); font-weight:600; cursor:pointer; border: none; color: #0f1724; }
+    .btn-ghost { background:none; border:1px solid rgba(2,6,23,0.06); padding:10px 18px; border-radius:999px; cursor:pointer; }
+    .hero-card { border-radius:var(--radius-lg); background:linear-gradient(180deg, rgba(255,212,59,0.02), #fff); border:1px solid rgba(2,6,23,0.06); box-shadow:var(--shadow-soft); overflow:hidden; }
+    .section { padding:72px 0; background:var(--bg); }
+    .section-sub { color:var(--text-muted); max-width:520px; margin-bottom:32px; font-size:1.05rem; }
+    .card-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:32px; }
+    .info-card { background:#fff; border-radius:var(--radius-md); padding:24px; box-shadow:var(--shadow-soft); border:1px solid rgba(2,6,23,0.06); }
+    .icon-circle { width:48px;height:48px;border-radius:999px;background:rgba(255,212,59,0.18);display:flex;align-items:center;justify-content:center;margin-bottom:16px; }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal-visible { opacity:1; transform:translateY(0); }
+    /* video card */
+    .video-card {
+      display: flex;
+      gap: 36px;
+      align-items: stretch;
+      margin-top: 18px;
+      flex-wrap: nowrap;
+    }
+
+    .video-poster {
+      flex: 1 1 68%;
+      max-width: 68%;
+      height: 480px;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(2,6,23,0.06);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 360px;
+    }
+    .video-poster video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .play-btn {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 18px 36px rgba(2,6,23,0.16);
+      cursor: pointer;
+    }
+
+    .video-meta {
+      flex: 0 0 32%;
+      max-width: 32%;
+      min-width: 300px;
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+    .video-meta h3 { margin: 0 0 6px 0; }
+    .video-meta p { margin: 0; color: var(--text-muted); }
+
+    .video-meta .meta-actions { margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    @media (max-width:1100px) {
+      .video-card { gap: 20px; flex-wrap: wrap; }
+      .video-poster { width: 100%; max-width: 100%; height: 320px; flex-basis: 100%; min-width: unset; }
+      .video-meta { flex-basis: 100%; max-width: 100%; min-width: unset; align-self: stretch; padding-top: 6px; }
+    }
+    /* pills row */
+    .pill-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
+    .pill-item { background:#fff; padding:8px 12px; border-radius:999px; border:1px solid rgba(2,6,23,0.04); color:var(--text-muted); font-weight:600; box-shadow:0 6px 16px rgba(2,6,23,0.04); }
+    /* services grid */
+    .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:18px; }
+    .service-card { background:#fff; padding:18px; border-radius:12px; border:1px solid rgba(2,6,23,0.04); box-shadow:0 12px 30px rgba(2,6,23,0.04); }
+    .align-center { text-align:center; margin-top:18px; }
+    /* reviews */
+    .reviews { padding:48px 0; background:linear-gradient(180deg, #fff, #fbfcff); }
+    .reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .review-card { background:#fff; padding:18px; border-radius:14px; border:1px solid rgba(2,6,23,0.04); box-shadow:0 12px 30px rgba(2,6,23,0.04); min-height:150px; display:flex; flex-direction:column; justify-content:space-between; }
+    .stars { color:#f6c84c; font-size:1.02rem; margin-bottom:8px; }
+    .review-meta { color:var(--text-muted); font-size:0.95rem; }
+    @media (max-width:900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .nav-links { display:none; } .nav-toggle { display:inline-block; }
+      .mobile-only{ display:flex; } .desktop-only{ display:none; }
+      .card-grid { grid-template-columns:1fr; }
+      .services-grid { grid-template-columns:1fr; }
+      .reviews-grid { grid-template-columns:1fr; }
+      .video-poster { width:100%; height:220px; }
+      .video-meta { width:100%; }
+    }
+    /* mobile nav open */
+    .nav-open { position:fixed; inset:60px 0 0 0; background:linear-gradient(180deg,rgba(255,255,255,0.98),#fff); display:flex; flex-direction:column; padding:18px; gap:10px; z-index:55; overflow:auto; }
+    .nav-open a{ padding:12px 8px; border-radius:8px; }
+    /* small about teaser */
+    .about-teaser { display:flex; gap:18px; align-items:center; padding:18px; background:linear-gradient(90deg, rgba(255,212,59,0.04), transparent); border-radius:14px; border:1px solid rgba(2,6,23,0.04); margin-top:28px; }
+    .about-teaser img { width:120px; height:80px; object-fit:cover; border-radius:10px; }
+    .about-teaser .teaser-content h3 { margin:0 0 6px 0; font-size:1.1rem; }
+    .about-teaser .teaser-content p { margin:0; color:var(--text-muted); font-size:0.95rem; }
+
+    /* Global animation utilities */
+    .animated * { will-change: transform, opacity; }
+    .fade-in { animation: fadeInUp .6s cubic-bezier(.2,.9,.2,1) both; }
+    .floaty { animation: floaty 4.5s ease-in-out infinite; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(14px);} to{opacity:1;transform:none;} }
+    @keyframes floaty { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+
+    /* stagger helper */
+    [data-anim-delay] { opacity:0; transform:translateY(8px); animation-fill-mode:both; animation-name:fadeInUp; animation-duration:.6s; animation-timing-function:cubic-bezier(.2,.9,.2,1); }
+    [data-anim-delay].play { opacity:1; transform:none; }
+
+    /* Reviews marquee / carousel */
+    .reviews-viewport { overflow:hidden; position:relative; padding-top:6px; padding-bottom:6px; }
+    .reviews-track {
+      display:flex;
+      gap:18px;
+      align-items:stretch;
+      will-change:transform;
+    }
+    .reviews-track .review-card { flex:0 0 320px; }
+    /* marquee animation; will be set via inline style for speed */
+    .reviews-track.marquee { animation: marquee linear infinite; }
+    @keyframes marquee { from{ transform: translateX(0);} to{ transform: translateX(-50%);} }
+
+    /* Desktop: show marquee; mobile: natural stacked */
+    @media (max-width:900px) {
+      .reviews-viewport { padding:0; }
+      .reviews-track { display:block; gap:0; }
+      .reviews-track .review-card { width:100%; margin-bottom:18px; }
+      .reviews-track.marquee { animation:none; transform:none; }
+    }
+
+    /* Apply some subtle animations to other elements */
+    .video-poster, .video-meta, .service-card, .info-card, .hero-card, .review-card { transition: transform .45s cubic-bezier(.2,.9,.2,1), box-shadow .4s; }
+    .video-poster:hover { transform: translateY(-6px); box-shadow: 0 28px 60px rgba(2,6,23,0.12); }
+    .service-card:hover, .info-card:hover { transform: translateY(-8px); box-shadow: 0 26px 56px rgba(2,6,23,0.08); }
+  </style>
+</head>
+<body>
+  <div id="introOverlay" class="intro-overlay" aria-hidden="true" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#fff;z-index:9999">
+    <img src="Picsart_25-12-08_07-14-43-688.png" alt="Intro" style="max-width:30%;opacity:0;transform:scale(.98);animation:introFade 1600ms ease forwards;">
+  </div>
+
+  <header class="site-header">
+    <div class="h-container h-flex-between">
+      <a href="index.html" class="logo">
+        <img src="Picsart_25-12-08_07-14-43-688.png" alt="CallZen" class="site-logo" />
+      </a>
+
+      <nav class="nav-links" id="mainNav">
+        <a href="index.html#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="about.html">About</a>
+        <a href="#contact">Contact</a>
+        <!-- removed duplicate mobile-only Book Consultation button to prevent two buttons on large screens -->
+      </nav>
+
+      <a href="#contact" class="btn-primary btn-pill desktop-only">Book Consultation</a>
+
+      <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
+        <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="2" y="0" rx="1" fill="#0f1724"/><rect width="22" height="2" y="6" rx="1" fill="#0f1724"/><rect width="22" height="2" y="12" rx="1" fill="#0f1724"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME HERO -->
+    <section id="home" class="hero reveal">
+      <div class="h-container hero-grid">
+        <div>
+          <h1>Smart home services with always-on AI concierge.</h1>
+          <p>Get fast, reliable help for repairs and maintenance—CallZen manages calls, qualifies needs, and schedules the right technician 24/7.</p>
+          <div style="margin:20px 0;">
+            <a href="#contact" class="btn-primary">Book Free Consultation</a>
+            <button class="btn-ghost scroll-to-services" style="margin-left:10px;">View Services</button>
+          </div>
+
+          <div class="about-teaser reveal" id="aboutTeaser">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="About preview">
+            <div class="teaser-content">
+              <h3>About CallZen</h3>
+              <p>New dedicated About page with team, process, images and animations. <a href="about.html" style="color:var(--text-main);font-weight:600;">Open full page →</a></p>
+            </div>
+          </div>
+
+        </div>
+        <div class="hero-card" aria-hidden="false">
+          <div style="padding:18px 20px 20px;">
+            <p style="font-weight:600;margin-bottom:10px">Live AI Concierge</p>
+            <div style="background:rgba(255,212,59,0.08);padding:10px;border-radius:12px;margin-bottom:8px;">Hi! Emergency repair or routine maintenance?</div>
+            <div style="background:rgba(2,6,23,0.04);padding:10px;border-radius:12px;margin-left:auto;max-width:80%;margin-bottom:8px;">AC stopped working, need help today.</div>
+            <div style="background:rgba(255,212,59,0.02);padding:10px;border-radius:12px;">Perfect. Technician ETA 4-6PM with right parts. Confirm?</div>
+            <div style="margin-top:12px;padding:6px 10px;border-radius:999px;background:rgba(22,163,74,0.18);display:inline-block;color:#065f46;border:1px solid rgba(34,197,94,0.3);">✅ Appointment Confirmed</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO SHOWCASE -->
+    <section class="section reveal video-section" id="video-showcase">
+      <div class="h-container">
+        <h2>See CallZen in Action</h2>
+        <p class="section-sub">A quick walkthrough: what CallZen AI does and how to book a consultancy.</p>
+
+        <div class="video-card">
+          <!-- large poster that becomes the video when played -->
+          <div class="video-poster" id="videoPoster" data-src="./AI Business Automation.mp4" style="background-image:url('generated-image.png');" aria-label="CallZen demo video" tabindex="0">
+            <!-- play button stays centered over poster; JS will replace poster content with video element -->
+            <button class="play-btn" id="playVideoBtn" aria-label="Play demo video">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 3v18l15-9L5 3z" fill="#0f1724" />
+              </svg>
+            </button>
+          </div>
+
+          <aside class="video-meta" aria-hidden="false">
+            <h3>CallZen AI — Quick Tour</h3>
+            <p>Watch how CallZen handles inbound calls, schedules visits automatically, and makes booking a consultancy effortless.</p>
+
+            <div class="meta-actions">
+              <a href="#contact" class="btn-primary btn-pill">Book Consultation</a>
+              <a href="about.html" class="btn-ghost" style="align-self:center">Learn More</a>
+            </div>
+
+            <p style="color:var(--text-muted);font-size:.95rem;margin-top:6px">
+              Tip: click the play button or press Enter when the poster is focused to start the demo. The player is responsive and fills the available card area.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES OVERVIEW -->
+    <section class="section reveal" id="services-home">
+      <div class="h-container">
+        <h2>What we do</h2>
+        <p class="section-sub">Complete home services with intelligent call handling and automatic specialist dispatch.</p>
+        <div class="card-grid">
+          <div class="info-card">
+            <div class="icon-circle">❄</div>
+            <h3>AC & Appliances</h3>
+            <p>Emergency cooling, gas refills, refrigerator repairs, and deep cleaning.</p>
+          </div>
+          <div class="info-card">
+            <div class="icon-circle">🔌</div>
+            <h3>Electrical</h3>
+            <p>Safe wiring, lighting installs, MCB fixes, and power outage response.</p>
+          </div>
+          <div class="info-card">
+            <div class="icon-circle">🚿</div>
+            <h3>Plumbing</h3>
+            <p>Leak detection, pipe bursts, bathroom fixes, and water system maintenance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="section section-soft reveal">
+      <div class="h-container">
+        <h2>Why CallZen?</h2>
+        <div class="pill-row">
+          <div class="pill-item">24/7 Live AI</div>
+          <div class="pill-item">60s Qualification</div>
+          <div class="pill-item">Emergency Priority</div>
+          <div class="pill-item">Verified Pros</div>
+          <div class="pill-item">Real-time ETAs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reviews reveal" aria-label="Customer reviews">
+      <div class="h-container">
+        <h2 data-anim-delay="0">What our customers say</h2>
+        <p class="section-sub" data-anim-delay="60">Real feedback from homeowners who used CallZen to get fast, reliable service.</p>
+
+        <div class="reviews-viewport" aria-hidden="false">
+          <div class="reviews-track" id="reviewsTrack" aria-live="polite">
+            <!-- original cards (will be duplicated by JS to create a seamless loop) -->
+            <div class="review-card" data-review>
+              <div>
+                <div class="stars" aria-hidden="true">★★★★★</div>
+                <strong>“Saved my weekend — technician arrived with the right parts.”</strong>
+                <p class="review-meta">— Priya R., Mumbai</p>
+              </div>
+              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">Fast, clear communication and a mirror of the ETA. Highly recommended.</div>
+            </div>
+
+            <div class="review-card" data-review>
+              <div>
+                <div class="stars" aria-hidden="true">★★★★★</div>
+                <strong>“Professional and honest billing.”</strong>
+                <p class="review-meta">— Sameer T., Bengaluru</p>
+              </div>
+              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">The AI triage saved time; human support stepped in when needed.</div>
+            </div>
+
+            <div class="review-card" data-review>
+              <div>
+                <div class="stars" aria-hidden="true">★★★★★</div>
+                <strong>“Quick emergency response — fixed leak same day.”</strong>
+                <p class="review-meta">— Anjali M., Pune</p>
+              </div>
+              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">Appreciated the real-time updates and technician tracking.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA STRIP -->
+    <section class="section cta-strip reveal">
+      <div class="h-container cta-strip-inner" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+        <div>
+          <h2>Ready for home service that actually works?</h2>
+          <p>Book now and experience scheduling that understands your life.</p>
+        </div>
+        <a href="#contact" class="btn-primary btn-pill">Book Consultation</a>
+      </div>
+    </section>
+
+    <!-- DETAILED SERVICES -->
+    <section class="hero hero-small reveal" id="services">
+      <div class="h-container">
+        <h1>Our Services</h1>
+        <p>Specialized home care with intelligent dispatch.</p>
+      </div>
+    </section>
+    <section class="section reveal">
+      <div class="h-container">
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="icon-circle">❄</div>
+            <h3>AC Services</h3>
+            <p>Installation, gas refilling, deep cleaning, emergency breakdown repair.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon-circle">🔌</div>
+            <h3>Electrical</h3>
+            <p>Wiring, MCB panels, lighting installs, safety inspections.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon-circle">🚿</div>
+            <h3>Plumbing</h3>
+            <p>Leaks, pipe bursts, bathroom renovations, water heaters.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon-circle">🧹</div>
+            <h3>Cleaning</h3>
+            <p>Deep cleans, regular maintenance, post-construction cleanup.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon-circle">🔧</div>
+            <h3>Appliances</h3>
+            <p>Refrigerators, washing machines, kitchen equipment service.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon-circle">📅</div>
+            <h3>Maintenance</h3>
+            <p>Annual contracts with smart reminders and priority booking.</p>
+          </div>
+        </div>
+        <div class="align-center mt-lg">
+          <h2>Not sure what service?</h2>
+          <p>Describe your issue—CallZen finds the perfect specialist.</p>
+       <a href="#contact" class="btn-primary btn-pill">Get Help Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="hero reveal" id="contact" style="padding-top:48px;padding-bottom:28px;">
+      <div class="h-container">
+        <h1>Get In Touch</h1>
+        <p>CallZen responds instantly—describe your need and get scheduled.</p>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="h-container contact-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+        <div>
+          <h2>Send Message</h2>
+          <div style="background:#fff;border-radius:14px;padding:20px;border:1px solid rgba(2,6,23,0.06);box-shadow:var(--shadow-soft);">
+            <form id="contactForm" name="contactForm">
+              <input type="text" name="from_name" placeholder="Your name" required style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(2,6,23,0.06);margin-bottom:10px" />
+              <input type="email" name="reply_to" placeholder="Email address" required style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(2,6,23,0.06);margin-bottom:10px" />
+              <input type="tel" name="phone" placeholder="Phone number" required style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(2,6,23,0.06);margin-bottom:10px" />
+              <textarea name="message" placeholder="Describe your home service need..." required style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(2,6,23,0.06);min-height:120px;margin-bottom:10px"></textarea>
+              <div style="display:flex;gap:8px;align-items:center">
+                <button type="submit" class="btn-primary">Send Message</button>
+                <div id="contactStatus" style="font-size:0.95rem;color:var(--text-muted)"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div>
+          <h2>Quick Contact</h2>
+          <p style="margin-top:8px;color:var(--text-muted)">WhatsApp: <a href="https://wa.me/919999999999" target="_blank" rel="noopener">Chat Now</a></p>
+          <p style="color:var(--text-muted)">Email: hello@callzen.com</p>
+          <p style="color:var(--text-muted)">Phone: +91-98xxx-xxxxx</p>
+          <a href="#contact" class="btn-primary" style="display:inline-block;margin-top:12px;">Book Consultation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="background:var(--bg-soft);padding:40px 0;border-top:1px solid rgba(2,6,23,0.06);color:var(--text-muted);">
+    <div class="h-container" style="display:grid;grid-template-columns:1.3fr .9fr .8fr;gap:32px;">
+      <div>
+        <h3 style="color:var(--text-main)">CallZen</h3>
+        <p>Your 24/7 digital concierge for home peace of mind.</p>
+      </div>
+      <div>
+        <h4 style="color:var(--text-main)">Quick Links</h4>
+        <a href="index.html#home">Home</a><br>
+        <a href="#services">Services</a><br>
+        <a href="about.html">About</a><br>
+        <a href="#contact">Contact</a>
+      </div>
+      <div>
+        <h4 style="color:var(--text-main)">Get Help</h4>
+        <p>Email: hello@callzen.com</p>
+        <p>Phone: +91-98xxx-xxxxx</p>
+        <a href="#contact" class="btn-primary" style="margin-top:8px;display:inline-block;">Book Now</a>
+      </div>
+    </div>
+    <div style="text-align:center;padding:16px;border-top:1px solid rgba(2,6,23,0.06);margin-top:24px;font-size:.9rem;">© 2025 CallZen. All rights reserved.</div>
+  </footer>
+
+  <!-- EmailJS SDK + init -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    try { if (window.emailjs) emailjs.init('oiGfAwG6KRQOqjoZV'); } catch(e){ console.warn('EmailJS init failed', e); }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      // intro overlay hide
+      const overlay = document.getElementById('introOverlay');
+      if (overlay) setTimeout(()=>{ overlay.style.transition='opacity 500ms'; overlay.style.opacity='0'; setTimeout(()=>overlay.remove(),520); }, 1200);
+
+      // reveal observer
+      const observer = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if (e.isIntersecting){ e.target.classList.add('reveal-visible'); observer.unobserve(e.target); }});
+      }, {threshold:0.12});
+      document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+      // mobile nav toggle
+      const toggle = document.getElementById('navToggle');
+      const nav = document.getElementById('mainNav');
+      if (toggle && nav){
+        toggle.addEventListener('click', ()=>{
+          nav.classList.toggle('nav-open');
+          // accessibility
+          const expanded = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', !expanded);
+        });
+      }
+
+      // close mobile nav when clicking a link
+      document.querySelectorAll('#mainNav a').forEach(a=>{
+        a.addEventListener('click', ()=>{ nav.classList.remove('nav-open'); });
+      });
+
+      // contact form (EmailJS)
+      const contactForm = document.getElementById('contactForm');
+      const status = document.getElementById('contactStatus');
+      if (contactForm && window.emailjs) {
+        contactForm.addEventListener('submit', function(e){
+          e.preventDefault();
+          const btn = this.querySelector('button[type="submit"]'); if (btn) btn.disabled=true;
+          status.textContent = 'Sending...';
+          emailjs.sendForm('service_crxpamj','template_4ow4wsp', this)
+            .then(()=>{ status.style.color='green'; status.textContent='Message sent — we will contact you soon.'; contactForm.reset(); if (btn) btn.disabled=false; })
+            .catch(err=>{ status.style.color='crimson'; status.textContent='Failed to send. Please try again.'; console.error(err); if (btn) btn.disabled=false; });
+        });
+      }
+
+      // video play lazy
+      const playBtn = document.getElementById('playVideoBtn');
+      const videoPoster = document.getElementById('videoPoster');
+      function createAndPlayVideo(){ if(!videoPoster || videoPoster.querySelector('video')) return; const v=document.createElement('video'); v.src = videoPoster.dataset.src || './AI Business Automation.mp4'; v.controls=true; v.autoplay=true; v.playsInline=true; v.style.width='100%'; v.style.height='100%'; v.style.objectFit='cover'; videoPoster.innerHTML=''; videoPoster.appendChild(v); v.play().catch(()=>{}); }
+      if (playBtn && videoPoster){ playBtn.addEventListener('click', createAndPlayVideo); videoPoster.setAttribute('tabindex','0'); videoPoster.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); createAndPlayVideo(); } }); }
+
+      // small animation for reviews (stagger)
+      const reviews = document.querySelectorAll('[data-review]');
+      reviews.forEach((r,i)=>{ setTimeout(()=> r.classList.add('reveal-visible'), 160*i + 200); });
+
+      // scroll-to-services button
+      document.querySelectorAll('.scroll-to-services').forEach(btn=>{
+        btn.addEventListener('click', ()=> document.getElementById('services')?.scrollIntoView({behavior:'smooth'}));
+      });
+
+      // --- improved smooth scroll for internal links (header offset + easing + cancel) ---
+      let __scrollAnim = null;
+      function getHeaderOffset(){
+        const h = document.querySelector('.site-header');
+        return (h ? Math.round(h.getBoundingClientRect().height) : 60) + 12; // extra gap
+      }
+      function easeInOutQuad(t){ return t < 0.5 ? 2*t*t : -1 + (4-2*t)*t; }
+
+      function animatedScrollTo(targetY, duration){
+        // cancel existing
+        if (__scrollAnim && __scrollAnim.frame) cancelAnimationFrame(__scrollAnim.frame);
+        const startY = window.scrollY || document.documentElement.scrollTop || 0;
+        const clampedTarget = Math.max(0, Math.round(targetY));
+        const diff = clampedTarget - startY;
+        if (Math.abs(diff) < 2) { window.scrollTo(0, clampedTarget); return Promise.resolve(); }
+
+        // distance-based duration (ms), clamped
+        const calc = Math.min(1200, Math.max(350, Math.abs(diff) * 0.5));
+        const dur = typeof duration === 'number' ? duration : Math.round(calc);
+
+        const startTime = performance.now();
+        return new Promise(resolve => {
+          function step(now){
+            const t = Math.min(1, (now - startTime) / dur);
+            const eased = easeInOutQuad(t);
+            window.scrollTo(0, Math.round(startY + diff * eased));
+            if (t < 1){
+              __scrollAnim.frame = requestAnimationFrame(step);
+            } else {
+              __scrollAnim = null;
+              resolve();
+            }
+          }
+          __scrollAnim = { frame: requestAnimationFrame(step) };
+        });
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href || href === '#') return;
+        link.addEventListener('click', function(e){
+          const targetEl = document.querySelector(href);
+          if (!targetEl) return;
+          e.preventDefault();
+
+          // special-case: if link targets the top/home, scroll to absolute top (0)
+          const isHome = href === '#home' || (targetEl.id && targetEl.id.toLowerCase() === 'home');
+          const offset = getHeaderOffset();
+          const rect = targetEl.getBoundingClientRect();
+          let targetY = window.scrollY + rect.top - offset;
+
+          if (isHome) {
+            targetY = 0;
+          }
+
+          // animate, then set focus for accessibility and update history
+          animatedScrollTo(targetY).then(()=>{
+            try { targetEl.setAttribute('tabindex','-1'); targetEl.focus({preventScroll:true}); } catch(e){}
+            if (history.replaceState) history.replaceState(null, '', href);
+            else location.hash = href;
+          });
+
+          // close mobile nav if open
+          const navEl = document.getElementById('mainNav');
+          if(navEl && navEl.classList.contains('nav-open')) navEl.classList.remove('nav-open');
+        });
+      });
+
+      // small animation trigger: apply staggered data-anim-delay elements
+      document.body.classList.add('animated');
+      const delayed = document.querySelectorAll('[data-anim-delay]');
+      delayed.forEach((el,i)=>{
+        const ms = parseInt(el.getAttribute('data-anim-delay') || 60,10) + i*40;
+        el.style.animationDelay = (ms/1000) + 's';
+        el.classList.add('play');
+      });
+
+      // Reviews marquee setup (infinite one-direction scroll)
+      (function setupMarquee(){
+        const track = document.getElementById('reviewsTrack');
+        if(!track) return;
+        // Clone items until track width >= 2x viewport (simple heuristic)
+        const viewport = track.parentElement;
+        const items = Array.from(track.children);
+        if(items.length === 0) return;
+
+        // Compute target width: we want at least 2x visible width for seamless loop
+        const viewportWidth = Math.max(viewport.clientWidth, window.innerWidth * 0.6);
+        let totalWidth = Array.from(track.children).reduce((s,el)=> s + el.getBoundingClientRect().width + 18, 0);
+
+        // Append clones until totalWidth >= viewportWidth * 2
+        let cloneIndex = 0;
+        while(totalWidth < viewportWidth * 2){
+          const clone = items[cloneIndex % items.length].cloneNode(true);
+          track.appendChild(clone);
+          totalWidth += clone.getBoundingClientRect().width + 18;
+          cloneIndex++;
+          if(cloneIndex > 20) break; // safety
+        }
+
+        // Set marquee animation duration proportional to content width
+        // speed: pixels per second (lower => slower). adjust 55 for comfortable speed.
+        const speed = 55;
+        // measure full track width
+        const trackWidth = Array.from(track.children).reduce((s,el)=> s + el.getBoundingClientRect().width + 18, 0);
+        const duration = Math.max(8, Math.round((trackWidth / speed))); // seconds
+        // set CSS animation
+        track.classList.add('marquee');
+        track.style.animationDuration = duration + 's';
+        // ensure transform is reset on resize (recalculate)
+        let resizeTimer;
+        window.addEventListener('resize', ()=>{
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(()=>{
+            // remove clones and re-run setup for simplicity
+            // (simple but effective for small site)
+            while(track.children.length > items.length) track.removeChild(track.lastChild);
+            track.classList.remove('marquee');
+            track.style.animationDuration='';
+            setupMarquee();
+          },200);
+        });
+      })();
+
+      // add subtle reveal to review cards (non-marquee path will show them)
+      document.querySelectorAll('.review-card').forEach((c,i)=>{ c.style.animationDelay = (0.18*i)+'s'; c.classList.add('fade-in'); });
+
+      // ensure play button accessible by space/enter on poster (already present)
+    });
+  </script>
+
+  <style>
+    @keyframes introFade { 0%{opacity:0;transform:scale(.96)} 15%{opacity:1;transform:scale(1)} 85%{opacity:1} 100%{opacity:0;transform:scale(1.02)} }
+  </style>
+</body>
+</html>

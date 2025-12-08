@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — CallZen</title>
+  <link rel="icon" href="Picsart_25-12-08_07-14-43-688.png">
+  <style>
+    :root{ --bg:#ffffff; --muted:#64748b; --accent:#FFD43B; --dark:#0f1724; --card:#fff; --radius:14px; }
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(180deg,#fbfdff,#f7fafc);color:var(--dark);line-height:1.6}
+    .wrap{width:min(1100px,100%);margin:0 auto;padding:28px}
+    header{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo img{height:36px}
+    nav a{margin-left:16px;color:var(--muted)}
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:18px}
+    .hero-card{background:var(--card);padding:28px;border-radius:18px;box-shadow:0 18px 40px rgba(2,6,23,0.06);border:1px solid rgba(2,6,23,0.04);position:relative;overflow:hidden}
+    .hero-visual{border-radius:12px;overflow:hidden;height:300px;background-size:cover;background-position:center;box-shadow:0 10px 30px rgba(2,6,23,0.04)}
+    .badge{display:inline-flex;padding:8px 12px;border-radius:999px;background:rgba(255,212,59,0.12);border:1px solid rgba(255,212,59,0.18);font-weight:600}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+    .feature{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(2,6,23,0.04);box-shadow:0 12px 30px rgba(2,6,23,0.04);transform:translateY(12px);opacity:0;transition:all .6s ease}
+    .feature.visible{transform:none;opacity:1}
+    .team{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .person{background:var(--card);padding:14px;border-radius:12px;text-align:center;border:1px solid rgba(2,6,23,0.04);box-shadow:0 8px 24px rgba(2,6,23,0.04)}
+    .person img{width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:10px}
+    .timeline{margin-top:28px;display:flex;flex-direction:column;gap:10px}
+    .tl-item{background:var(--card);padding:12px;border-radius:10px;border-left:4px solid var(--accent);box-shadow:0 8px 24px rgba(2,6,23,0.04)}
+    .cta{margin-top:28px;padding:20px;border-radius:14px;background:linear-gradient(90deg, rgba(255,212,59,0.12), transparent);display:flex;justify-content:space-between;align-items:center}
+    .btn{background:var(--accent);padding:12px 18px;border-radius:999px;color:var(--dark);font-weight:700;border:none;cursor:pointer}
+    footer{margin-top:30px;padding:18px 0;color:var(--muted);text-align:center}
+    .work-gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:12px; }
+    .work-item {
+      border-radius:12px;
+      overflow:hidden;
+      height:160px;
+      box-shadow:0 12px 30px rgba(2,6,23,0.04);
+      border:1px solid rgba(2,6,23,0.04);
+      display:block;
+      background:transparent;
+    }
+    .work-item img { width:100%; height:100%; object-fit:cover; display:block; }
+    @media (max-width:900px){ .hero{grid-template-columns:1fr} .team{grid-template-columns:1fr} .grid-3{grid-template-columns:1fr} .hero-visual{height:200px} nav{display:none} .work-gallery{grid-template-columns:1fr} .work-item{height:180px} }
+    /* simple fade-in & float */
+    .float{animation:floaty 4s ease-in-out infinite}
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <a href="index.html"><img src="Picsart_25-12-08_07-14-43-688.png" alt="CallZen"></a>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1 style="margin-top:14px">We manage calls, qualify needs, and dispatch the right help — 24/7</h1>
+          <p style="color:var(--muted)">This page expands on our process, security, and real-world outcomes. Images and micro-animations demonstrate how CallZen works end-to-end.</p>
+
+          <div class="grid-3">
+            <div class="feature" data-reveal>
+              <strong>60s Qualification</strong>
+              <p style="color:var(--muted);margin-top:8px">AI-first triage that routes emergencies immediately.</p>
+            </div>
+            <div class="feature" data-reveal>
+              <strong>Verified Technicians</strong>
+              <p style="color:var(--muted);margin-top:8px">Licensed pros, inventory matched, and ETA tracking.</p>
+            </div>
+            <div class="feature" data-reveal>
+              <strong>Real-time ETAs</strong>
+              <p style="color:var(--muted);margin-top:8px">Customers see live technician location and expected arrival.</p>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="tl-item"><strong>Step 1</strong> — Contact received by AI, immediate safety triage for hazards.</div>
+            <div class="tl-item"><strong>Step 2</strong> — Problem classified, parts checked, estimated time given.</div>
+            <div class="tl-item"><strong>Step 3</strong> — Technician assigned, ETA and confirmation sent. Human backup when needed.</div>
+          </div>
+
+        </div>
+
+        <aside>
+          <div class="hero-card">
+            <div class="hero-visual float" style="background-image:url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder');"></div>
+            <div style="margin-top:14px">
+              <h3 style="margin:0 0 6px 0">Mission & Values</h3>
+              <p style="color:var(--muted)">Safety first. Fast second. Transparency always. We build systems to reduce damage and restore households quickly.</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- Replaced "Meet the team" with gallery of work we offer -->
+      <section style="margin-top:28px">
+        <h2>Our Work — Gallery</h2>
+        <p style="color:var(--muted)">Examples of the types of jobs CallZen coordinates and completes.</p>
+        <div class="work-gallery" aria-hidden="false">
+          <div class="work-item"><img src="Repairman in uniform installing the outside unit of air conditioner _ Premium Photo.jpeg" alt="AC service example"></div>
+          <div class="work-item"><img src="الربوة لخدمات التنظيف.jpeg" alt="Electrical work example"></div>
+          <div class="work-item"><img src="How Much Does a Plumber Cost_ The Average Rate for Hiring a Plumber.jpeg" alt="Plumbing example"></div>
+
+          <div class="work-item"><img src="Homem um técnico elétrico trabalhando em uma central elétrica com fusíveis _ Foto Grátis.jpeg" alt="Cleaning service example"></div>
+          <div class="work-item"><img src="How Long Do the Appliances Last in Your Home_.jpeg" alt="Appliances repair example"></div>
+          <div class="work-item"><img src="download (11).jpeg" alt="Maintenance example"></div>
+        </div>
+      </section>
+
+      <section style="margin-top:28px">
+        <h2>Security & Compliance</h2>
+        <p style="color:var(--muted)">We use enterprise-grade encryption, role-based access, and human review for escalations. Data access is limited and auditable.</p>
+
+        <div class="cta">
+          <div>
+            <strong>Want a walkthrough?</strong>
+            <div style="color:var(--muted)">Book a live demo and see CallZen handle sample calls and dispatch.</div>
+          </div>
+          <div>
+            <a href="index.html#contact"><button class="btn">Book Demo</button></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div style="margin-top:12px;color:var(--muted)">© 2025 CallZen — <a href="index.html" style="color:var(--dark)">Return home</a></div>
+    </footer>
+  </div>
+
+  <script>
+    // Simple reveal animation for about page
+    document.addEventListener('DOMContentLoaded', function(){
+      const els = document.querySelectorAll('[data-reveal]');
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if (e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
+      }, {threshold:0.15});
+      els.forEach(el=>obs.observe(el));
+    });
+  </script>
+</body>
+</html>
