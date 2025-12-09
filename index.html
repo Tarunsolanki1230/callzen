@@ -248,9 +248,9 @@
     /* Contact form responsive fixes */
     .sr-only { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
     .contact-grid { display:grid; grid-template-columns:1fr 360px; gap:24px; align-items:start; }
-    .contact-card { background:#fff;border-radius:14px;padding:20px;border:1px solid rgba(2,6,23,0.06);box-shadow:var(--shadow-soft); }
+    .contact-card { background:#fff;border-radius:14px;padding:20px;border:2px solid #000;box-shadow:var(--shadow-soft); }
     .contact-card h2 { margin-top:0; }
-    .contact-card input,.contact-card textarea { width:100%; box-sizing:border-box; font-size:1rem; padding:12px 14px; border-radius:10px; border:1px solid rgba(2,6,23,0.06); margin-bottom:10px; }
+    .contact-card input,.contact-card textarea { width:100%; box-sizing:border-box; font-size:1rem; padding:12px 14px; border-radius:10px; border:2px solid #000; margin-bottom:10px; }
     .contact-card textarea { min-height:140px; resize:vertical; }
     .contact-meta p { color:var(--text-muted); margin:8px 0; }
     .contact-cta { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:6px; }
@@ -555,25 +555,25 @@
               <div>
                 <div class="stars" aria-hidden="true">★★★★★</div>
                 <strong>“Saved my weekend — technician arrived with the right parts.”</strong>
-                <p class="review-meta">— Priya R., Mumbai</p>
+                <p class="review-meta">— Emily S., Austin, TX</p>
               </div>
-              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">Fast, clear communication and a mirror of the ETA. Highly recommended.</div>
+              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">Fast, clear communication and accurate ETAs. Highly recommended.</div>
             </div>
 
             <div class="review-card" data-review>
               <div>
                 <div class="stars" aria-hidden="true">★★★★★</div>
                 <strong>“Professional and honest billing.”</strong>
-                <p class="review-meta">— Sameer T., Bengaluru</p>
+                <p class="review-meta">— Michael B., San Diego, CA</p>
               </div>
-              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">The AI triage saved time; human support stepped in when needed.</div>
+              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">The triage saved time and the technician was punctual and courteous.</div>
             </div>
 
             <div class="review-card" data-review>
               <div>
                 <div class="stars" aria-hidden="true">★★★★★</div>
                 <strong>“Quick emergency response — fixed leak same day.”</strong>
-                <p class="review-meta">— Anjali M., Pune</p>
+                <p class="review-meta">— Sarah L., New York, NY</p>
               </div>
               <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">Appreciated the real-time updates and technician tracking.</div>
             </div>
@@ -680,7 +680,7 @@
           <aside class="contact-card contact-meta" aria-labelledby="quick-contact-title">
             <h2 id="quick-contact-title">Quick Contact</h2>
             <p>WhatsApp: <a href="https://wa.me/919999999999" target="_blank" rel="noopener">Chat Now</a></p>
-            <p>Email: <a href="mailto:hello@callzen.com">hello@callzen.com</a></p>
+            <p>Email: <a href="mailto:neelusa@gmail.com">neelusa@gmail.com</a></p>
             <p>Phone: <a href="tel:+9198xxxxxxx">+91-98xxx-xxxxx</a></p>
 
             <div style="margin-top:12px" class="contact-cta">
@@ -713,7 +713,7 @@
       </div>
       <div>
         <h4 style="color:var(--text-main)">Get Help</h4>
-        <p>Email: hello@callzen.com</p>
+        <p>Email: neelusa@gmail.com</p>
         <p>Phone: +91-98xxx-xxxxx</p>
         <a href="#contact" class="btn-primary" style="margin-top:8px;display:inline-block;">Book Now</a>
       </div>
@@ -816,7 +816,29 @@
       // video play lazy
       const playBtn = document.getElementById('playVideoBtn');
       const videoPoster = document.getElementById('videoPoster');
-      function createAndPlayVideo(){ if(!videoPoster || videoPoster.querySelector('video')) return; const v=document.createElement('video'); v.src = videoPoster.dataset.src || './AI Business Automation.mp4'; v.controls=true; v.autoplay=true; v.playsInline=true; v.style.width='100%'; v.style.height='100%'; v.style.objectFit='cover'; videoPoster.innerHTML=''; videoPoster.appendChild(v); v.play().catch(()=>{}); }
+      function createAndPlayVideo(){
+        if(!videoPoster || videoPoster.querySelector('video')) return;
+        const v = document.createElement('video');
+        v.src = videoPoster.dataset.src || './AI Business Automation.mp4';
+        v.controls = true;
+        v.autoplay = true;
+        v.playsInline = true;
+        v.style.width = '100%';
+        v.style.height = '100%';
+        v.style.objectFit = 'cover';
+        videoPoster.innerHTML = '';
+        videoPoster.appendChild(v);
+
+        // Attempt to play and request fullscreen (user interaction required — this is triggered by click)
+        v.play().then(()=>{
+          try{
+            const reqFS = v.requestFullscreen || v.webkitRequestFullscreen || v.mozRequestFullScreen || v.msRequestFullscreen;
+            if (reqFS) reqFS.call(v);
+          }catch(err){ /* ignore fullscreen failures */ }
+        }).catch(()=>{
+          // play failed (autoplay restrictions) — do nothing
+        });
+      }
       if (playBtn && videoPoster){ playBtn.addEventListener('click', createAndPlayVideo); videoPoster.setAttribute('tabindex','0'); videoPoster.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); createAndPlayVideo(); } }); }
 
       // small animation for reviews (stagger)
