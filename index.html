@@ -48,7 +48,7 @@
     .section-sub { color:var(--text-muted); max-width:520px; margin-bottom:32px; font-size:1.05rem; }
     .card-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:32px; }
     .info-card { background:#fff; border-radius:var(--radius-md); padding:24px; box-shadow:var(--shadow-soft); border:1px solid rgba(2,6,23,0.06); }
-    .icon-circle { width:48px;height:48px;border-radius:999px;background:rgba(255,212,59,0.18);display:flex;align-items:center;justify-content:center;margin-bottom:16px; }
+    .icon-circle { width:70px;height:70px;border-radius:999px;background:#ff8c00;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:2rem; }
     .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
     .reveal-visible { opacity:1; transform:translateY(0); }
     /* video card */
@@ -955,7 +955,7 @@
           <!-- Quick contact / Meta card -->
           <aside class="contact-card contact-meta" aria-labelledby="quick-contact-title">
             <h2 id="quick-contact-title">Quick Contact</h2>
-            <p>Email: <a href="mailto:neelusa@gmail.com">neelusa@gmail.com</a></p>
+            <p>Email: <a href="hello@callzen.io">hello@callzen.io</a></p>
             <p>Phone: <a href="tel:+18137257572">1-813-725-7572</a></p>
 
             <div style="margin-top:12px" class="contact-cta">
@@ -1173,12 +1173,23 @@
 
           // special-case: if link targets the top/home, scroll to absolute top (0)
           const isHome = href === '#home' || (targetEl.id && targetEl.id.toLowerCase() === 'home');
+          const isContact = href === '#contact' || (targetEl.id && targetEl.id.toLowerCase() === 'contact');
           const offset = getHeaderOffset();
           const rect = targetEl.getBoundingClientRect();
           let targetY = window.scrollY + rect.top - offset;
 
           if (isHome) {
             targetY = 0;
+          } else if (isContact) {
+            // For contact section, scroll down to the form element itself
+            const contactForm = document.getElementById('contactForm') || document.querySelector('.contact-card');
+            if (contactForm) {
+              const formRect = contactForm.getBoundingClientRect();
+              targetY = window.scrollY + formRect.top - offset - 80;
+            } else {
+              // Fallback: scroll past the section header
+              targetY = window.scrollY + rect.top + 20;
+            }
           }
 
           // animate, then set focus for accessibility and update history
