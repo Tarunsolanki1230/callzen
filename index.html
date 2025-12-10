@@ -33,9 +33,9 @@
     .h-flex-between { display:flex; justify-content:space-between; align-items:center;}
     .site-header { position: sticky; top:0; z-index:60; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); border-bottom:1px solid rgba(2,6,23,0.06); padding:10px 0; }
     .logo { display:inline-flex; gap:10px; align-items:center; font-weight:700;}
-    .site-logo { height:38px; display:block; }
+    .site-logo { height:48px; display:block; }
     .nav-links { display:flex; gap:20px; align-items:center;}
-    .nav-links a { color:var(--text-muted); padding:8px 6px; border-radius:8px; }
+    .nav-links a { color:#1f2735; padding:8px 6px; border-radius:8px; text-decoration:none; font-weight:600; }
     .nav-links a:hover { color:var(--text-main); background:rgba(2,6,23,0.03); }
     .mobile-only{ display:none; } .desktop-only{ display:inline-flex; }
     .nav-toggle { display:none; background:none; border:none; cursor:pointer; padding:8px; border-radius:8px; }
@@ -118,6 +118,41 @@
     /* pills row */
     .pill-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
     .pill-item { background:#fff; padding:8px 12px; border-radius:999px; border:1px solid rgba(2,6,23,0.04); color:var(--text-muted); font-weight:600; box-shadow:0 6px 16px rgba(2,6,23,0.04); }
+
+    /* Why-choose visual section */
+    .why-choose { background: #ffffff; text-align: center; padding: 60px 20px; color: #000; }
+    .why-choose h2 { font-size: 38px; font-weight: 700; margin-bottom: 10px; }
+    .why-choose .subtitle { font-size: 18px; max-width: 700px; margin: 0 auto 50px auto; color: #333; }
+    .features-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; max-width: 1100px; margin: auto; }
+    .feature-box { background: #ffffff; padding: 25px; border-radius: 10px; border: 1px solid #eee; transition: 0.3s; }
+    .feature-box:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+    .icon { font-size: 40px; margin-bottom: 15px; color: #FFD700; }
+    .feature-box h3 { font-size: 22px; margin-bottom: 10px; color: #000; }
+    .feature-box p { font-size: 16px; color: #444; line-height: 1.6; }
+    /* Transform section: before / after visual comparison */
+    .transform-section { background: linear-gradient(180deg,#fff,#fbfcff); padding:60px 0; }
+    .transform-section h2 { font-size:32px; margin-bottom:8px; text-align:center; }
+    .transform-section .subtitle { text-align:center; color:var(--text-muted); max-width:780px; margin:0 auto 28px; }
+    .transform-grid { display:grid; grid-template-columns: 1fr 1fr; gap:28px; max-width:1100px; margin:28px auto 0; align-items:start; }
+    .transform-card { background:#fff; border-radius:12px; overflow:hidden; border:1px solid rgba(2,6,23,0.04); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; }
+    .transform-visual { height:160px; position:relative; overflow:hidden; display:flex; align-items:flex-end; padding:16px; color:#fff; font-weight:700; font-size:18px; }
+    .transform-visual img.cover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+    .transform-visual .visual-overlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.48)); }
+    .transform-visual .visual-label { position:relative; z-index:2; }
+    .transform-list { list-style:none; padding:16px 18px; margin:0; display:flex; flex-direction:column; gap:12px; color:var(--text-muted); }
+    .transform-list li { display:flex; gap:10px; align-items:flex-start; font-weight:600; }
+    .transform-list li span { font-weight:400; color:var(--text-muted); margin-left:6px; font-weight:400; }
+    @media (max-width:900px){ .transform-grid{grid-template-columns:1fr; } .transform-visual{height:200px} }
+
+    /* FAQ accordion styles */
+    .faq-section .faq-list { margin-top:18px; display:grid; gap:12px; }
+    .faq-item { border:1px solid rgba(2,6,23,0.06); border-radius:10px; overflow:hidden; background:#fff; }
+    .faq-toggle { width:100%; text-align:left; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; background:transparent; cursor:pointer; border:0; font-weight:600; color:var(--text-main); }
+    .faq-toggle .chev { transition: transform .18s ease; color:var(--text-muted); }
+    .faq-item.open .faq-toggle .chev { transform: rotate(180deg); }
+    /* Use display toggle instead of height animation to avoid clipping/bounce */
+    .faq-panel { padding:0 16px; display:none; color:var(--text-muted); }
+    .faq-item.open .faq-panel { display:block; padding:12px 16px 16px 16px; overflow:visible; }
     /* services grid */
     .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:18px; }
     .service-card { background:#fff; padding:18px; border-radius:12px; border:1px solid rgba(2,6,23,0.04); box-shadow:0 12px 30px rgba(2,6,23,0.04); }
@@ -266,6 +301,13 @@
     /* ensure hero buttons wrap cleanly on small screens */
     .hero .hero-actions { display:flex; gap:10px; flex-wrap:wrap; }
     .hero .hero-actions .btn-primary, .hero .hero-actions .btn-ghost { min-width:0; flex: 1 1 auto; }
+    /* Make the hero-level ghost button stand out with a blue->black gradient */
+    .hero .hero-actions .btn-ghost {
+      background: linear-gradient(90deg,#0ea5e9 0%, #0f1724 100%);
+      color: #fff;
+      border: none;
+      box-shadow: 0 10px 24px rgba(15,23,36,0.18);
+    }
 
     /* From Uiverse.io by vinodjangid07 - toggle UI (customized) */
     #checkbox { display: none; }
@@ -322,33 +364,34 @@
 
      /* Side-panel behavior: nav is off-canvas by default and slides in from the RIGHT when checkbox checked
        This block is intended for small screens; we reset nav to normal layout on desktop below. */
-     nav#mainNav {
+       nav#mainNav {
       position: fixed;
-      top: var(--header-h, 64px);
-      right: 0;
+      top: calc(var(--header-h, 64px) + 12px);
+      right: 12px;
       left: auto;
-      height: calc(1100% - var(--header-h, 64px));
-      width: 250px; /* increased width for better visibility */
+      height: 800%;
+      /* max-height: min(520px, calc(100vh - var(--header-h, 64px) - 24px)); */
+      width: 320px;
       max-width: 92%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), );
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), #fff);
       box-shadow: -10px 0 40px rgba(2,6,23,0.14);
+      border-radius: 16px;
       transform: translateX(110%);
       transition: transform .36s cubic-bezier(.2,.9,.2,1);
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      padding: 28px 22px;
+      padding: 32px 22px 26px;
       gap: 18px;
       z-index: 1400;
       overflow:auto;
       -webkit-overflow-scrolling: touch;
     }
-
     #checkbox:checked ~ nav#mainNav {
       transform: translateX(0);
     }
 
-    nav#mainNav a { color: var(--text-main); display:block; padding:14px 16px; border-radius:10px; font-size:1.05rem; line-height:1.4; }
+    nav#mainNav a { color: var(--text-main); display:block; padding:14px 16px; border-radius:10px; font-size:1.05rem; line-height:1.4; width:100%; box-sizing:border-box; }
 
     /* overlay to dim the rest of the page when nav open */
     #navOverlay { display:none; }
@@ -356,6 +399,7 @@
 
     /* ensure toggle sits above everything and only shows on small screens */
     .toggle { display: none; }
+    
     @media (max-width:900px) {
       .toggle { display: inline-flex; z-index:1500; }
       /* hide previous nav-toggle if any */
@@ -395,7 +439,68 @@
       .desktop-only { display: inline-flex !important; }
     }
 
+    /* Glass promo badge */
+    .promo-glass {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.62);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(15, 23, 36, 0.08);
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12);
+      z-index: 2300;
+      color: #0f1724;
+    }
+    .promo-glass .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 8px rgba(34,197,94,0.18);
+    }
+    .promo-glass .cta {
+      background: linear-gradient(180deg, var(--primary), #ffb700);
+      color: #0f1724;
+      border: none;
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 12px 30px rgba(15, 23, 36, 0.16);
+      transition: transform .18s ease, box-shadow .18s ease;
+      white-space: nowrap;
+    }
+    .promo-glass .cta:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(15,23,36,0.2); }
+    .promo-glass .promo-close {
+      background: rgba(15,23,36,0.06);
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f1724;
+    }
+    @media (max-width:900px){
+      .promo-glass { left: 12px; right: 12px; bottom: 12px; }
+    }
     /* ...existing code... */
+    @keyframes introFade {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.nav-links a[href*="about.html"] {
+  white-space: nowrap;
+}
+
   </style>
 </head>
 <body>
@@ -420,14 +525,14 @@
       <nav class="nav-links" id="mainNav" role="navigation" aria-label="Main navigation">
         <a href="index.html#home">Home</a>
         <a href="#services">Services</a>
-        <a href="about.html">About</a>
+        <a href="about.html">About us</a>
         <a href="#contact">Contact</a>
 
         <!-- Mobile full-width CTA inside nav -->
-        <a href="#contact" class="btn-primary mobile-only" style="margin-top:8px; justify-content:center;">Book Consultation</a>
+        <a href="#contact" class="btn-primary mobile-only" style="margin-top:8px; justify-content:center;">Book a Consultation</a>
       </nav>
 
-      <a href="#contact" class="btn-primary btn-pill desktop-only">Book Consultation</a>
+      <a href="#contact" class="btn-primary btn-pill desktop-only">Book a Consultation</a>
 
       <!-- remove old navToggle button from markup if present (kept hidden by CSS) -->
     </div>
@@ -436,15 +541,26 @@
   <!-- overlay element for side-panel (appears when checkbox is checked) -->
   <div id="navOverlay" aria-hidden="true"></div>
 
+  <!-- Glass promo badge -->
+  <div class="promo-glass" id="promoGlass" role="status" aria-live="polite">
+    <div class="dot" aria-hidden="true"></div>
+    <div>
+      <strong>First 14 days free</strong>
+      <div style="color:var(--text-muted); font-weight:600; font-size:0.95rem;">CallZen AI concierge on us.</div>
+    </div>
+    <a class="cta" href="#contact">Start free</a>
+    <button class="promo-close" aria-label="Dismiss" type="button" onclick="document.getElementById('promoGlass')?.remove();">×</button>
+  </div>
+
   <main>
     <!-- HOME HERO -->
     <section id="home" class="hero reveal">
       <div class="h-container hero-grid">
         <div>
-          <h1>Smart home services with always-on AI concierge.</h1>
+          <h1>Callzen AI receptionist for home services with always-on AI concierge.</h1>
           <p>Get fast, reliable help for repairs and maintenance—CallZen manages calls, qualifies needs, and schedules the right technician 24/7.</p>
           <div class="hero-actions" style="margin:20px 0;">
-            <a href="#contact" class="btn-primary">Book Free Consultation</a>
+            <a href="#contact" class="btn-primary">Book a Free Consultation</a>
             <button type="button" class="btn-ghost scroll-to-services">View Services</button>
           </div>
 
@@ -491,7 +607,7 @@
             <p>Watch how CallZen handles inbound calls, schedules visits automatically, and makes booking a consultancy effortless.</p>
 
             <div class="meta-actions">
-              <a href="#contact" class="btn-primary btn-pill">Book Consultation</a>
+              <a href="#contact" class="btn-primary btn-pill">Book a Consultation</a>
               <a href="about.html" class="btn-ghost" style="align-self:center">Learn More</a>
             </div>
 
@@ -503,95 +619,97 @@
       </div>
     </section>
 
-    <!-- SERVICES OVERVIEW -->
-    <section class="section reveal" id="services-home">
+    <!-- SERVICES OVERVIEW removed per client request -->
+
+    <!-- WHY CHOOSE US (replaced with visual features) -->
+    <section class="why-choose reveal">
       <div class="h-container">
-        <h2>What we do</h2>
-        <p class="section-sub">Complete home services with intelligent call handling and automatic specialist dispatch.</p>
-        <div class="card-grid">
-          <div class="info-card">
-            <div class="icon-circle">❄</div>
-            <h3>AC & Appliances</h3>
-            <p>Emergency cooling, gas refills, refrigerator repairs, and deep cleaning.</p>
+        <h2>Why Choose Our Service?</h2>
+        <p class="subtitle">Every unanswered call is a missed opportunity. Our AI assistant ensures you never miss a lead.</p>
+
+        <div class="features-container">
+          <div class="feature-box">
+            <div class="icon">📞</div>
+            <h3>Never Lose a Call</h3>
+            <p>AI intercepts calls in real-time when your receptionist is busy or after hours, reducing missed opportunities.</p>
           </div>
-          <div class="info-card">
-            <div class="icon-circle">🔌</div>
-            <h3>Electrical</h3>
-            <p>Safe wiring, lighting installs, MCB fixes, and power outage response.</p>
+
+          <div class="feature-box">
+            <div class="icon">💬</div>
+            <h3>Human-Like Conversations</h3>
+            <p>Advanced speech recognition and natural language processing create authentic interactions callers trust.</p>
           </div>
-          <div class="info-card">
-            <div class="icon-circle">🚿</div>
-            <h3>Plumbing</h3>
-            <p>Leak detection, pipe bursts, bathroom fixes, and water system maintenance.</p>
+
+          <div class="feature-box">
+            <div class="icon">⏰</div>
+            <h3>24/7 Coverage</h3>
+            <p>Works around the clock — nights, weekends, holidays — capturing leads while you sleep.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="icon">⚡</div>
+            <h3>Seamless Integration</h3>
+            <p>Connects directly to your phone system and CRM with no hardware changes required.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="icon">📅</div>
+            <h3>Appointment Booking</h3>
+            <p>Automatically books and confirms appointments with your scheduling tools.</p>
+          </div>
+
+          <div class="feature-box">
+            <div class="icon">🛡️</div>
+            <h3>Call Privacy & Security</h3>
+            <p>Enterprise-grade security ensures sensitive customer data stays protected.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- WHY CHOOSE US -->
-    <section class="section section-soft reveal">
+    <!-- HOW CALLZEN TRANSFORMS (placed before Services) -->
+    <section class="transform-section reveal">
       <div class="h-container">
-        <h2>Why CallZen?</h2>
-        <div class="pill-row">
-          <div class="pill-item">24/7 Live AI</div>
-          <div class="pill-item">60s Qualification</div>
-          <div class="pill-item">Emergency Priority</div>
-          <div class="pill-item">Verified Pros</div>
-          <div class="pill-item">Real-time ETAs</div>
-        </div>
-      </div>
-    </section>
+        <h2>How CallZen Transforms Your Experience</h2>
+        <p class="subtitle">Compare the old way vs. the CallZen way — visuals first, details next. We turn chaotic phone queues into predictable bookings.</p>
 
-    <!-- REVIEWS -->
-    <section class="reviews reveal" aria-label="Customer reviews">
-      <div class="h-container">
-        <h2 data-anim-delay="0">What our customers say</h2>
-        <p class="section-sub" data-anim-delay="60">Real feedback from homeowners who used CallZen to get fast, reliable service.</p>
-
-        <div class="reviews-viewport" aria-hidden="false">
-          <div class="reviews-track" id="reviewsTrack" aria-live="polite">
-            <!-- original cards (will be duplicated by JS to create a seamless loop) -->
-            <div class="review-card" data-review>
-              <div>
-                <div class="stars" aria-hidden="true">★★★★★</div>
-                <strong>“Saved my weekend — technician arrived with the right parts.”</strong>
-                <p class="review-meta">— Emily S., Austin, TX</p>
-              </div>
-              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">Fast, clear communication and accurate ETAs. Highly recommended.</div>
+        <div class="transform-grid">
+          <div class="transform-card before">
+            <div class="transform-visual">
+              <img class="cover" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1400&auto=format&fit=crop&s=placeholder" alt="Before CallZen">
+              <div class="visual-overlay" style="background:linear-gradient(180deg, rgba(244,63,94,0.45), rgba(15,23,36,0.35));"></div>
+              <div class="visual-label">BEFORE CALLZEN</div>
             </div>
+            <ul class="transform-list">
+              <li>❌<span>Call during lunch break → Get voicemail</span></li>
+              <li>❌<span>Explain issue to non-technical person</span></li>
+              <li>❌<span>Wait hours for callback</span></li>
+              <li>❌<span>Hope they understood the problem</span></li>
+              <li>❌<span>Play phone tag to schedule</span></li>
+            </ul>
+          </div>
 
-            <div class="review-card" data-review>
-              <div>
-                <div class="stars" aria-hidden="true">★★★★★</div>
-                <strong>“Professional and honest billing.”</strong>
-                <p class="review-meta">— Michael B., San Diego, CA</p>
-              </div>
-              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">The triage saved time and the technician was punctual and courteous.</div>
+          <div class="transform-card after">
+            <div class="transform-visual">
+              <img class="cover" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1400&auto=format&fit=crop&s=placeholder" alt="With CallZen">
+              <div class="visual-overlay" style="background:linear-gradient(180deg, rgba(34,197,94,0.45), rgba(2,6,23,0.35));"></div>
+              <div class="visual-label">WITH CALLZEN</div>
             </div>
-
-            <div class="review-card" data-review>
-              <div>
-                <div class="stars" aria-hidden="true">★★★★★</div>
-                <strong>“Quick emergency response — fixed leak same day.”</strong>
-                <p class="review-meta">— Sarah L., New York, NY</p>
-              </div>
-              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">Appreciated the real-time updates and technician tracking.</div>
-            </div>
+            <ul class="transform-list">
+              <li>✅<span>Text or talk anytime, 24/7</span></li>
+              <li>✅<span>AI understands technical issues instantly</span></li>
+              <li>✅<span>Get immediate confirmation and ETA</span></li>
+              <li>✅<span>Technician arrives prepared with right tools</span></li>
+              <li>✅<span>Schedule in 90 seconds flat</span></li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA STRIP -->
-    <section class="section cta-strip reveal">
-      <div class="h-container cta-strip-inner" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-        <div>
-          <h2>Ready for home service that actually works?</h2>
-          <p>Book now and experience scheduling that understands your life.</p>
-        </div>
-        <a href="#contact" class="btn-primary btn-pill">Book Consultation</a>
-      </div>
-    </section>
+    <!-- REVIEWS (moved below Services) -->
+
+    <!-- CTA STRIP (moved later) -->
 
     <!-- DETAILED SERVICES -->
     <section class="hero hero-small reveal" id="services">
@@ -642,6 +760,96 @@
       </div>
     </section>
 
+    <!-- FAQ -->
+    <section class="section reveal faq-section" id="faq">
+      <div class="h-container">
+        <h2>Frequently Asked Questions</h2>
+        <p class="section-sub">Common questions about CallZen and how it works.</p>
+
+        <div class="faq-list" role="list">
+          <div class="faq-item" role="listitem">
+            <button class="faq-toggle" aria-expanded="false" aria-controls="faq1">What is CallZen? <span class="chev">▾</span></button>
+            <div id="faq1" class="faq-panel" role="region">CallZen is a 24/7 AI-powered call triage and scheduling platform that qualifies service requests, routes the right technician, and provides real-time ETAs to homeowners.</div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-toggle" aria-expanded="false" aria-controls="faq2">Who can use CallZen? <span class="chev">▾</span></button>
+            <div id="faq2" class="faq-panel" role="region">Homeowners, property managers, and small service businesses can use CallZen. It works for anyone who needs reliable booking and dispatch for home services.</div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-toggle" aria-expanded="false" aria-controls="faq3">How does CallZen work? <span class="chev">▾</span></button>
+            <div id="faq3" class="faq-panel" role="region">An AI assistant triages incoming requests, captures details, suggests service categories, schedules a vetted technician, and sends updates with live ETAs. Human ops step in when needed.</div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-toggle" aria-expanded="false" aria-controls="faq4">Is CallZen customised for my business, or is it generic? <span class="chev">▾</span></button>
+            <div id="faq4" class="faq-panel" role="region">CallZen is configurable — you can define service types, coverage areas, pricing rules, and integration points so it fits your business workflow rather than a one-size-fits-all solution.</div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-toggle" aria-expanded="false" aria-controls="faq5">What makes CallZen different? <span class="chev">▾</span></button>
+            <div id="faq5" class="faq-panel" role="region">The combination of always-on AI triage, verified technicians, automatic scheduling, and real-time tracking reduces friction, no-shows, and manual coordination.</div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <button class="faq-toggle" aria-expanded="false" aria-controls="faq6">How do I get started? <span class="chev">▾</span></button>
+            <div id="faq6" class="faq-panel" role="region">Book a consultation using the form or the 'Book Consultation' button — we’ll walk through setup, service configuration, and onboarding your technicians or vendors.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reviews reveal" aria-label="Reviews">
+      <div class="h-container">
+        <h2 data-anim-delay="0">Reviews</h2>
+        <p class="section-sub" data-anim-delay="60">Real feedback from homeowners who used CallZen to get fast, reliable service.</p>
+
+        <div class="reviews-viewport" aria-hidden="false">
+          <div class="reviews-track" id="reviewsTrack" aria-live="polite">
+            <div class="review-card" data-review>
+              <div>
+                <div class="stars" aria-hidden="true">★★★★★</div>
+                <strong>“Saved my weekend — technician arrived with the right parts.”</strong>
+                <p class="review-meta">— Emily S., Austin, TX</p>
+              </div>
+              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">Fast, clear communication and accurate ETAs. Highly recommended.</div>
+            </div>
+
+            <div class="review-card" data-review>
+              <div>
+                <div class="stars" aria-hidden="true">★★★★★</div>
+                <strong>“Professional and honest billing.”</strong>
+                <p class="review-meta">— Michael B., San Diego, CA</p>
+              </div>
+              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">The triage saved time and the technician was punctual and courteous.</div>
+            </div>
+
+            <div class="review-card" data-review>
+              <div>
+                <div class="stars" aria-hidden="true">★★★★★</div>
+                <strong>“Quick emergency response — fixed leak same day.”</strong>
+                <p class="review-meta">— Sarah L., New York, NY</p>
+              </div>
+              <div style="margin-top:10px;color:var(--text-muted);font-size:.95rem">Appreciated the real-time updates and technician tracking.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA STRIP (moved here) -->
+    <section class="section cta-strip reveal">
+      <div class="h-container cta-strip-inner" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+        <div>
+          <h2>Ready for home service that actually works?</h2>
+          <p>Book now and experience scheduling that understands your life.</p>
+        </div>
+        <a href="#contact" class="btn-primary btn-pill">Book a Consultation</a>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section class="hero reveal" id="contact" style="padding-top:48px;padding-bottom:28px;">
       <div class="h-container">
@@ -679,13 +887,11 @@
           <!-- Quick contact / Meta card -->
           <aside class="contact-card contact-meta" aria-labelledby="quick-contact-title">
             <h2 id="quick-contact-title">Quick Contact</h2>
-            <p>WhatsApp: <a href="https://wa.me/919999999999" target="_blank" rel="noopener">Chat Now</a></p>
             <p>Email: <a href="mailto:neelusa@gmail.com">neelusa@gmail.com</a></p>
-            <p>Phone: <a href="tel:+9198xxxxxxx">+91-98xxx-xxxxx</a></p>
+            <p>Phone: <a href="tel:+18137257572">1-813-725-7572</a></p>
 
             <div style="margin-top:12px" class="contact-cta">
-              <a href="#contact" class="btn-primary" style="display:inline-flex; justify-content:center;">Book Consultation</a>
-              <a href="https://wa.me/919999999999" class="btn-ghost" style="display:inline-flex; justify-content:center;">WhatsApp</a>
+              <a href="#contact" class="btn-primary" style="display:inline-flex; justify-content:center;">Book a Consultation</a>
             </div>
 
             <div style="margin-top:14px;color:var(--text-muted);font-size:.95rem">
@@ -708,13 +914,13 @@
         <h4 style="color:var(--text-main)">Quick Links</h4>
         <a href="index.html#home">Home</a><br>
         <a href="#services">Services</a><br>
-        <a href="about.html">About</a><br>
+        <a href="about.html">About us</a><br>
         <a href="#contact">Contact</a>
       </div>
       <div>
         <h4 style="color:var(--text-main)">Get Help</h4>
-        <p>Email: neelusa@gmail.com</p>
-        <p>Phone: +91-98xxx-xxxxx</p>
+        <p>Email: hello@callzen.io</p>
+        <p>Phone: 1-813-725-7572</p>
         <a href="#contact" class="btn-primary" style="margin-top:8px;display:inline-block;">Book Now</a>
       </div>
     </div>
@@ -738,66 +944,6 @@
         entries.forEach(e=>{ if (e.isIntersecting){ e.target.classList.add('reveal-visible'); observer.unobserve(e.target); }});
       }, {threshold:0.12});
       document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-      // mobile nav toggle code (REPLACE mobile nav toggle code with this robust, minimal implementation
-      (function setupNavToggle(){
-        const toggle = document.getElementById('navToggle');
-        const nav = document.getElementById('mainNav');
-        if (!toggle || !nav) return;
-
-        // ensure aria state
-        if (!toggle.hasAttribute('aria-expanded')) toggle.setAttribute('aria-expanded','false');
-
-        function openNav(){
-          nav.classList.add('nav-open');
-          document.body.classList.add('nav-open');
-          toggle.setAttribute('aria-expanded','true');
-          // lock scroll
-          document.documentElement.style.overflow = 'hidden';
-          document.body.style.overflow = 'hidden';
-          // focus first item for keyboard users
-          const first = nav.querySelector('a');
-          if (first) first.focus();
-        }
-        function closeNav(){
-          nav.classList.remove('nav-open');
-          document.body.classList.remove('nav-open');
-          toggle.setAttribute('aria-expanded','false');
-          document.documentElement.style.overflow = '';
-          document.body.style.overflow = '';
-          toggle.focus();
-        }
-        function toggleNav(e){
-          e && e.stopPropagation();
-          if (nav.classList.contains('nav-open')) closeNav(); else openNav();
-        }
-
-        // click + keyboard activation
-        toggle.addEventListener('click', toggleNav);
-        toggle.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleNav(e); } });
-
-        // close when a nav link is clicked
-        nav.addEventListener('click', (e) => {
-          const a = e.target.closest && e.target.closest('a');
-          if (!a) return;
-          // for same-page anchors we keep smooth scrolling; close nav immediately
-          setTimeout(closeNav, 60);
-        });
-
-        // outside click closes menu
-        document.addEventListener('click', (e) => {
-          if (!nav.classList.contains('nav-open')) return;
-          if (nav.contains(e.target) || toggle.contains(e.target)) return;
-          closeNav();
-        }, { passive: true });
-
-        // ESC closes
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('nav-open')) closeNav(); });
-
-        // if viewport switches to desktop ensure menu closed
-        window.addEventListener('resize', () => { if (window.innerWidth > 900 && nav.classList.contains('nav-open')) closeNav(); });
-        window.addEventListener('orientationchange', () => setTimeout(() => { if (nav.classList.contains('nav-open')) closeNav(); }, 200));
-      })();
 
       // contact form (EmailJS)
       const contactForm = document.getElementById('contactForm');
@@ -844,6 +990,46 @@
       // small animation for reviews (stagger)
       const reviews = document.querySelectorAll('[data-review]');
       reviews.forEach((r,i)=>{ setTimeout(()=> r.classList.add('reveal-visible'), 160*i + 200); });
+
+      // FAQ accordion behavior: toggle panels, keyboard support
+      (function setupFAQ(){
+        const items = document.querySelectorAll('.faq-item');
+        if(!items || items.length === 0) return;
+        items.forEach(item => {
+          const btn = item.querySelector('.faq-toggle');
+          const panel = item.querySelector('.faq-panel');
+          if(!btn || !panel) return;
+          btn.addEventListener('click', ()=>{
+            // determine intent (open if not currently open)
+            const willOpen = !item.classList.contains('open');
+            if (willOpen) {
+              // open: add class first so padding/styles apply, then set maxHeight after layout
+              item.classList.add('open');
+              btn.setAttribute('aria-expanded','true');
+              requestAnimationFrame(()=>{ panel.style.maxHeight = panel.scrollHeight + 'px'; });
+            } else {
+              // close: set current height, then remove class and collapse to 0 to animate
+              panel.style.maxHeight = panel.scrollHeight + 'px';
+              requestAnimationFrame(()=>{
+                item.classList.remove('open');
+                btn.setAttribute('aria-expanded','false');
+                // allow a frame for class removal styles to apply, then collapse
+                requestAnimationFrame(()=>{ panel.style.maxHeight = '0'; });
+              });
+            }
+          });
+          // after transition, if open remove inline maxHeight so panel can grow/shrink naturally
+          panel.addEventListener('transitionend', (ev)=>{
+            if (ev.propertyName !== 'max-height') return;
+            if (item.classList.contains('open')) panel.style.maxHeight = '';
+          });
+          // keyboard activation
+          btn.addEventListener('keydown', (e)=>{
+            if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); btn.click(); }
+            if(e.key === 'Escape'){ item.classList.remove('open'); btn.setAttribute('aria-expanded','false'); panel.style.maxHeight = null; btn.focus(); }
+          });
+        });
+      })();
 
       // scroll-to-services button
       document.querySelectorAll('.scroll-to-services').forEach(btn=>{
@@ -1024,5 +1210,8 @@
   <style>
     @keyframes introFade { 0%{opacity:0;transform:scale(.96)} 15%{opacity:1;transform:scale(1)} 85%{opacity:1} 100%{opacity:0;transform:scale(1.02)} }
   </style>
+
+  <script>
+  </script>
 </body>
 </html>
