@@ -115,6 +115,249 @@
       .video-poster { width: 100%; max-width: 100%; height: 320px; flex-basis: 100%; min-width: unset; }
       .video-meta { flex-basis: 100%; max-width: 100%; min-width: unset; align-self: stretch; padding-top: 6px; }
     }
+    /* Chat video section - Modern Redesign */
+    .chat-video-section {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafb 50%, #ffffff 100%);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .chat-video-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(2,6,23,0.08), transparent);
+    }
+    .chat-video-card {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 48px;
+    }
+    .chat-video-poster {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      background: #0f1724;
+      box-shadow: 0 32px 80px rgba(2,6,23,0.12), 0 0 0 1px rgba(2,6,23,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chat-video-poster::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,212,59,0.05) 0%, rgba(15,23,36,0.3) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .chat-video-poster.video-playing::before {
+      display: none;
+    }
+    .chat-video-poster img,
+    .chat-video-poster video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+    .chat-video-poster video {
+      z-index: 3;
+    }
+    .chat-play-btn {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 8px rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.2,0.9,0.2,1);
+      z-index: 2;
+    }
+    .chat-play-btn:hover {
+      transform: translate(-50%,-50%) scale(1.15);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 0 12px rgba(255,255,255,0.15);
+      background: #ffffff;
+    }
+    .chat-play-btn svg {
+      margin-left: 4px;
+    }
+    .chat-video-content {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .chat-video-content h2 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      text-align: center;
+    }
+    .chat-video-content .subtitle {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      line-height: 1.7;
+      margin: 0;
+      text-align: center;
+    }
+    .chat-features {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 8px;
+    }
+    .chat-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 24px;
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid rgba(2,6,23,0.08);
+      box-shadow: 0 4px 16px rgba(2,6,23,0.04);
+      transition: all 0.3s cubic-bezier(0.2,0.9,0.2,1);
+      position: relative;
+      overflow: hidden;
+    }
+    .chat-feature-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--primary), #ffb700);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .chat-feature-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(2,6,23,0.08);
+      border-color: rgba(255,212,59,0.2);
+    }
+    .chat-feature-item:hover::before {
+      opacity: 1;
+    }
+    .chat-feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,212,59,0.12), rgba(255,212,59,0.06));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .chat-feature-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--text-main);
+      stroke-width: 2;
+      fill: none;
+    }
+    .chat-feature-text {
+      flex: 1;
+      padding-top: 2px;
+    }
+    .chat-feature-text strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-main);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .chat-feature-text span {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      display: block;
+    }
+    .chat-cta-wrapper {
+      margin-top: 8px;
+    }
+    @media (max-width:1100px) {
+      .chat-video-section { padding: 72px 0; }
+      .chat-video-card { 
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .chat-video-poster { 
+        aspect-ratio: 16/9;
+        min-height: 400px;
+      }
+      .chat-video-content h2 { font-size: 2.2rem; }
+      .chat-feature-item { padding: 20px; }
+    }
+    @media (max-width:900px) {
+      .chat-video-section { padding: 60px 0; }
+      .chat-video-card { gap: 32px; }
+      .chat-video-poster { 
+        aspect-ratio: 16/9;
+        min-height: 300px;
+        border-radius: 16px;
+      }
+      .chat-play-btn {
+        width: 80px;
+        height: 80px;
+      }
+      .chat-play-btn svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+    @media (max-width:600px) {
+      .chat-video-section { padding: 48px 0; }
+      .chat-video-card { gap: 24px; }
+      .chat-video-poster { 
+        aspect-ratio: 16/9;
+        min-height: 250px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 100%;
+      }
+      .chat-video-poster img,
+      .chat-video-poster video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+      }
+      .chat-play-btn {
+        width: 70px;
+        height: 70px;
+      }
+      .chat-play-btn svg {
+        width: 28px;
+        height: 28px;
+      }
+      .chat-video-content h2 { font-size: 1.85rem; }
+      .chat-feature-icon { width: 48px; height: 48px; }
+      .chat-feature-icon svg { width: 20px; height: 20px; }
+      .chat-feature-item { padding: 16px; gap: 16px; }
+    }
     /* pills row */
     .pill-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
     .pill-item { background:#fff; padding:8px 12px; border-radius:999px; border:1px solid rgba(2,6,23,0.04); color:var(--text-muted); font-weight:600; box-shadow:0 6px 16px rgba(2,6,23,0.04); }
@@ -653,6 +896,69 @@
       </div>
     </section>
 
+    <!-- HOW TO CHAT WITH CALLZEN AI -->
+    <section class="chat-video-section reveal" id="chat-video">
+      <div class="h-container">
+        <div style="text-align: center; margin-bottom: 48px;">
+          <h2 style="font-size: 2.75rem; font-weight: 700; margin: 0 0 16px 0; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-main);">Experience CallZen AI</h2>
+          <p class="subtitle" style="color: var(--text-muted); font-size: 1.15rem; line-height: 1.7; margin: 0; max-width: 800px; margin-left: auto; margin-right: auto;">Watch how our intelligent concierge handles your service requests with precision, speed, and clarity transforming how you connect with home service professionals.</p>
+        </div>
+        <div class="chat-video-card">
+          <div class="chat-video-content">
+            <div class="chat-features">
+              <div class="chat-feature-item">
+                <div class="chat-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="chat-feature-text">
+                  <strong>Natural Conversation</strong>
+                  <span>Engage in natural dialogue—our AI understands context, intent, and urgency to provide accurate service matching.</span>
+                </div>
+              </div>
+              <div class="chat-feature-item">
+                <div class="chat-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="chat-feature-text">
+                  <strong>Instant Intelligence</strong>
+                  <span>Real-time analysis of your needs with immediate routing to qualified technicians and transparent ETAs.</span>
+                </div>
+              </div>
+              <div class="chat-feature-item">
+                <div class="chat-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="22 4 12 14.01 9 11.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="chat-feature-text">
+                  <strong>Seamless Scheduling</strong>
+                  <span>Complete booking in seconds with automated confirmations, technician profiles, and real-time tracking updates.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-cta-wrapper">
+              <a href="#contact" class="btn-primary">Start Your Free Trial</a>
+            </div>
+          </div>
+
+          <div class="chat-video-poster" id="chatVideoPoster" data-src="./Handy Home Booking.mp4" aria-label="CallZen chat demo video" tabindex="0">
+            <img src="Picsart_25-12-17_09-35-06-903.jpg" alt="CallZen AI Demo" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+            <button class="chat-play-btn" id="playChatVideoBtn" aria-label="Play chat demo video">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 5v14l11-7z" fill="#0f1724" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- VIDEO SHOWCASE -->
     <section class="section reveal video-section" id="video-showcase">
       <div class="h-container">
@@ -1081,6 +1387,56 @@
         });
       }
       if (playBtn && videoPoster){ playBtn.addEventListener('click', createAndPlayVideo); videoPoster.setAttribute('tabindex','0'); videoPoster.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); createAndPlayVideo(); } }); }
+
+      // chat video play lazy
+      const playChatBtn = document.getElementById('playChatVideoBtn');
+      const chatVideoPoster = document.getElementById('chatVideoPoster');
+      function createAndPlayChatVideo(){
+        if(!chatVideoPoster || chatVideoPoster.querySelector('video')) return;
+        const v = document.createElement('video');
+        v.src = chatVideoPoster.dataset.src || './Handy Home Booking.mp4';
+        v.controls = true;
+        v.controlsList = 'nodownload';
+        v.playsInline = true;
+        v.setAttribute('preload', 'metadata');
+        v.style.width = '100%';
+        v.style.height = '100%';
+        v.style.display = 'block';
+        v.style.position = 'relative';
+        v.style.zIndex = '10';
+        
+        // Use contain on mobile, cover on desktop for better responsiveness
+        const isMobile = window.innerWidth <= 600;
+        v.style.objectFit = isMobile ? 'contain' : 'cover';
+        v.style.objectPosition = 'center';
+        
+        // Remove image and play button, add video
+        const img = chatVideoPoster.querySelector('img');
+        const btn = chatVideoPoster.querySelector('.chat-play-btn');
+        if(img) img.remove();
+        if(btn) btn.remove();
+        
+        // Remove the overlay pseudo-element by adding a class
+        chatVideoPoster.classList.add('video-playing');
+        chatVideoPoster.appendChild(v);
+
+        // Play video - user can pause/play with controls
+        v.play().catch(()=>{
+          // play failed (autoplay restrictions) — user can click play button
+        });
+        
+        // Ensure controls are always accessible
+        v.addEventListener('loadedmetadata', function() {
+          v.controls = true;
+        });
+        
+        // Update object-fit on resize for responsiveness
+        window.addEventListener('resize', function updateVideoFit() {
+          const isMobileNow = window.innerWidth <= 600;
+          v.style.objectFit = isMobileNow ? 'contain' : 'cover';
+        });
+      }
+      if (playChatBtn && chatVideoPoster){ playChatBtn.addEventListener('click', createAndPlayChatVideo); chatVideoPoster.setAttribute('tabindex','0'); chatVideoPoster.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); createAndPlayChatVideo(); } }); }
 
       // small animation for reviews (stagger)
       const reviews = document.querySelectorAll('[data-review]');
